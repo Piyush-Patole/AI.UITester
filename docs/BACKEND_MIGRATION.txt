@@ -1,0 +1,16 @@
+# Backend Migration Guide (Future Scaling)
+
+To move this frontend-only demo to a production-ready system that actually executes tests, follow this high-level architecture transition:
+
+1. Create a Node.js / NestJS Backend API
+2. Move all Groq API calls (`src/api/groqService.ts`) to the backend. The frontend should NEVER hold the API key in production.
+3. Integrate a Test Execution Engine:
+   - When the AI generates a test plan containing Playwright code, the backend should save this to a `.spec.ts` file.
+   - Use Node's `child_process` to spawn `npx playwright test`.
+   - Capture the output, screenshots, and videos and return them to the frontend.
+4. Database Integration:
+   - Replace the Zustand ephemeral store with a real database (PostgreSQL / MongoDB).
+   - Store historical test runs for flakiness analysis.
+5. Authentication & CORS:
+   - Add JWT-based user authentication.
+   - The backend proxy will handle crawling and fetching HTML from client target domains, avoiding CORS issues present in pure frontend apps.
