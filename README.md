@@ -38,6 +38,19 @@ Visit the hosted application here: **[https://Piyush-Patole.github.io/AI.UITeste
 
 This platform acts as an **AI-driven QA engineer** that translates user requirements into executable test scripts and automatically performs bug triaging and test suite maintenance. It uses a **multi-stage LLM chain** powered by Groq to run the following process:
 
+### Process Flowchart
+```mermaid
+graph TD
+    A[Natural Language Scenario] -->|Groq LLM| B[1. Playwright Test Plan & Script]
+    B --> C{2. Estimated Outcome?}
+    C -->|Pass| D[No Triaging Needed]
+    C -->|Flaky| E[3. Flakiness Classification]
+    C -->|Fail| F[4. Root Cause Analysis (RCA)]
+    F --> G{Failure Category?}
+    G -->|Selector Issue| H[5. Self-Healing Locator Suggestion]
+    G -->|Other Issue| I[Report recommended fix suggestions]
+```
+
 ### 1. Natural Language to Playwright Translation
 - **Input**: The user enqueues testing scenarios written in plain English (e.g., *"User cannot submit the login form without filling in the password field"*).
 - **Process**: The system calls Groq's LLM (`llama-3.3-70b-versatile` or `mixtral-8x7b-32768`) with scenario prompts.
@@ -62,14 +75,15 @@ This platform acts as an **AI-driven QA engineer** that translates user requirem
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Technology Stack & Core Tools
 
-- **Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Vite 8](https://vite.dev/)
-- **UI Components & Icons**: [Material UI (MUI v9)](https://mui.com/material-ui/) + [Lucide React](https://lucide.dev/)
-- **Data Grid**: [AG Grid Community (v35)](https://www.ag-grid.com/)
-- **Charts**: [Recharts (v3)](https://recharts.org/)
-- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
-- **AI Integrations**: [Groq API](https://groq.com/) (using models like `llama-3.3-70b-versatile`)
+- **Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Vite 8](https://vite.dev/) (For clean SPA structure and HMR)
+- **AI Integrations**: [Groq API](https://groq.com/) using models like `llama-3.3-70b-versatile` (Powers test plan generation, RCA bug triaging, self-healing, and flakiness checks)
+- **Simulated Test Automation**: [Playwright](https://playwright.dev/) (The target format for LLM generated E2E scripts)
+- **UI Components & Icons**: [Material UI (MUI v9)](https://mui.com/material-ui/) + [Lucide React](https://lucide.dev/) (Renders the premium light theme cards, layout tabs, console terminal, and inputs)
+- **Data Grid**: [AG Grid Community (v35)](https://www.ag-grid.com/) (Renders the full-width results sheet with sorting, filtering, and data exporters)
+- **Charts**: [Recharts (v3)](https://recharts.org/) (Calculates and displays visual analytics donut and bar charts)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand) (Maintains session credentials, active scenarios queue, and run results in memory)
 
 ---
 
