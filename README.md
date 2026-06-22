@@ -41,14 +41,14 @@ This platform acts as an **AI-driven QA engineer** that translates user requirem
 ### Process Flowchart
 ```mermaid
 graph TD
-    A[Natural Language Scenario] -->|Groq LLM| B[1. Playwright Test Plan & Script]
-    B --> C{2. Estimated Outcome?}
-    C -->|Pass| D[No Triaging Needed]
-    C -->|Flaky| E[3. Flakiness Classification]
-    C -->|Fail| F[4. Root Cause Analysis (RCA)]
-    F --> G{Failure Category?}
-    G -->|Selector Issue| H[5. Self-Healing Locator Suggestion]
-    G -->|Other Issue| I[Report recommended fix suggestions]
+    A["Natural Language Scenario"] -->|Groq LLM| B["1. Playwright Test Plan & Script"]
+    B --> C{"2. Estimated Outcome?"}
+    C -->|Pass| D["No Triaging Needed"]
+    C -->|Flaky| E["3. Flakiness Classification"]
+    C -->|Fail| F["4. Root Cause Analysis (RCA)"]
+    F --> G{"Failure Category?"}
+    G -->|Selector Issue| H["5. Self-Healing Locator Suggestion"]
+    G -->|Other Issue| I["Report recommended fix suggestions"]
 ```
 
 ### 1. Natural Language to Playwright Translation
