@@ -15,7 +15,7 @@ interface SessionState {
 }
 
 export const useSessionStore = create<SessionState>((set) => ({
-  apiKey: '',
+  apiKey: import.meta.env.VITE_GROQ_API_KEY || '',
   model: 'llama-3.3-70b-versatile',
   targetUrl: '',
   username: '',
