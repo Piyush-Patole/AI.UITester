@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Crawl artifacts
+crawl-report.json
+screenshots/

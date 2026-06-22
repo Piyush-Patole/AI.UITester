@@ -14,19 +14,26 @@ Visit the hosted application here: **[https://Piyush-Patole.github.io/AI.UITeste
 - **Natural Language Scenarios**: Type or paste one or multiple test scenarios in plain English (e.g., *"Verify the login form fails with invalid password and shows a red alert"*).
 - **Interactive Queue**: Manage, review, and clear your testing queue before starting the batch processing. Includes browser selection (Chromium, Firefox, WebKit) and test type tags (Functional, Accessibility, Performance).
 
-### 2. 🖥️ Execution Logs
-- **Live Terminal Logs**: Watch test runs in real time using a centered developer console style with custom icons.
+### 2. 🕷️ Autonomous Website Crawler & UI Validation Engine
+- **BFS Discovery & Site Mapping**: Automatically traverses website paths, normalizes URLs, maps route trees (sitemaps), and maps parent-child hierarchy in real time.
+- **Dynamic State Explorer**: Scrapes the DOM to discover widget elements (modals, accordions, menu triggers, forms, tab layouts) and logs them as distinct testable states.
+- **WCAG Compliance audits**: Employs **Axe Core** to run automated accessibility checks (WCAG 2.0-2.2 & Section 508) in both real browsers (Playwright) and simulations.
+- **Multi-viewport Visual Regressions**: Generates and checks layout shifts across viewports (Desktop, Tablet, Mobile) and highlights shifts or color changes against baselines.
+- **AI Defect Classification**: Feeds findings to Groq LLM to instantly categorize bugs by severity (Critical, High, Medium, Low), construct root cause explanations, and suggest HTML fixes.
+
+### 3. 🖥️ Execution Logs
+- **Live Terminal Logs**: Watch test and crawler runs in real time using a centered developer console style with custom icons.
 - **Progress Tracking**: Clear visual progress indicators showing the completion rate of the current test batch.
 - **Smart Transitions**: The application automatically shifts navigation to the logs when a run begins.
 
-### 3. 📊 Detailed Results Table
+### 4. 📊 Detailed Results Table
 - **Full-Width Interactive Grid**: A fully-featured spreadsheet table using **AG Grid Community** to view detailed results:
   - **AI RCA (Root Cause Analysis)**: Issue title, description, reason, and recommended bug fixes.
   - **Locator Self-Healing**: Automatically suggested locators when existing DOM selectors break, including confidence scores.
   - **Flakiness Classification**: Analytics determining whether failures are due to genuine bugs or flaky tests.
 - **Data Exporting**: One-click actions to copy the results to clipboard (TSV) or download them as CSV/Excel formats.
 
-### 4. 📈 Analytics Dashboard
+### 5. 📈 Analytics Dashboard
 - **Executive Metrics**: High-level visual statistics including Total Tests, Pass Rate %, Passed, Failed, and Flaky counts.
 - **Interactive Charts**:
   - **Execution Status**: Donut pie chart summarizing pass, fail, flaky, and unknown distributions.
@@ -34,52 +41,30 @@ Visit the hosted application here: **[https://Piyush-Patole.github.io/AI.UITeste
 
 ---
 
-## 🧪 How UI Testing and Analysis Works
+## 🕷️ How the Autonomous Crawler Engine Works
 
-This platform acts as an **AI-driven QA engineer** that translates user requirements into executable test scripts and automatically performs bug triaging and test suite maintenance. It uses a **multi-stage LLM chain** powered by Groq to run the following process:
+The crawler runs an autonomous **11-step execution workflow**:
 
-### Process Flowchart
-```mermaid
-graph TD
-    A["Natural Language Scenario"] -->|Groq LLM| B["1. Playwright Test Plan & Script"]
-    B --> C{"2. Estimated Outcome?"}
-    C -->|Pass| D["No Triaging Needed"]
-    C -->|Flaky| E["3. Flakiness Classification"]
-    C -->|Fail| F["4. Root Cause Analysis (RCA)"]
-    F --> G{"Failure Category?"}
-    G -->|Selector Issue| H["5. Self-Healing Locator Suggestion"]
-    G -->|Other Issue| I["Report recommended fix suggestions"]
 ```
-
-### 1. Natural Language to Playwright Translation
-- **Input**: The user enqueues testing scenarios written in plain English (e.g., *"User cannot submit the login form without filling in the password field"*).
-- **Process**: The system calls Groq's LLM (`llama-3.3-70b-versatile` or `mixtral-8x7b-32768`) with scenario prompts.
-- **Output**: The LLM outputs a structured JSON test plan containing sequential E2E steps (actions, target elements), assertions, and **actual, executable Playwright test scripts** written in TypeScript.
-
-### 2. Intelligent Bug Triaging (RCA)
-- **Process**: If a scenario has an estimated status of `Fail`, it triggers a **Root Cause Analysis (RCA)** stage.
-- **Analysis**: The LLM analyzes the failure context and categorizes the bug:
-  - **Application Bug**: A genuine issue on the target site (e.g., broken UI links, form validation failure, console error).
-  - **Test Script Bug**: An outdated locator, timing issue, or script configuration error.
-- **Output**: Generates a detailed bug explanation, severity rating, and recommended fix suggestions.
-
-### 3. Self-Healing Locators
-- **Problem**: Brittle DOM selectors (autogenerated IDs, dynamic class names) are the leading cause of broken automated test suites.
-- **Process**: If the RCA stage identifies a `selector_issue` (broken element locator), the system captures the broken locator and the surrounding HTML context.
-- **Healer**: It prompts the LLM to inspect the surrounding DOM structure and generate a **healed, robust selector** (e.g., using aria-roles, text anchors, or stable parent hierarchies instead of dynamic class names).
-- **Output**: Returns a repaired locator along with an AI confidence rating.
-
-### 4. Flakiness Classification
-- **Process**: If a test is flagged as flaky, the system parses the execution run history.
-- **Output**: The LLM calculates a flakiness probability score and classifies the run behavior to prevent false-negative alerts in the developer build pipelines.
+Step 1: BFS Page Discovery ──> Step 2: Generate Sitemap ──> Step 3: Build Route Graph 
+       │
+       ▼
+Step 4: Identify Interactive Selectors ──> Step 5: Explore Safe UI States 
+       │
+       ▼
+Step 6: Run E2E UI Tests ──> Step 7: Axe Accessibility Scan ──> Step 8: Multi-Viewport Screenshots 
+       │
+       ▼
+Step 9: Baseline Comparison ──> Step 10: AI Defect Analysis ──> Step 11: Produce JSON Report
+```
 
 ---
 
 ## 🛠️ Technology Stack & Core Tools
 
 - **Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Vite 8](https://vite.dev/) (For clean SPA structure and HMR)
-- **AI Integrations**: [Groq API](https://groq.com/) using models like `llama-3.3-70b-versatile` (Powers test plan generation, RCA bug triaging, self-healing, and flakiness checks)
-- **Simulated Test Automation**: [Playwright](https://playwright.dev/) (The target format for LLM generated E2E scripts)
+- **AI Integrations**: [Groq API](https://groq.com/) using models like `llama-3.3-70b-versatile` (Powers test plan generation, RCA bug triaging, self-healing, flakiness checks, and crawler defect classifications)
+- **Automation & Audits**: [Playwright](https://playwright.dev/) + [@axe-core/playwright](https://www.npmjs.com/package/@axe-core/playwright) (Runs E2E traversal, screen capture, and accessibility checks)
 - **UI Components & Icons**: [Material UI (MUI v9)](https://mui.com/material-ui/) + [Lucide React](https://lucide.dev/) (Renders the premium light theme cards, layout tabs, console terminal, and inputs)
 - **Data Grid**: [AG Grid Community (v35)](https://www.ag-grid.com/) (Renders the full-width results sheet with sorting, filtering, and data exporters)
 - **Charts**: [Recharts (v3)](https://recharts.org/) (Calculates and displays visual analytics donut and bar charts)
@@ -91,11 +76,14 @@ graph TD
 
 ```bash
 ai-ui-tester/
+├── scripts/
+│   └── run-crawler.ts       # Node.js CLI script executing the crawler engine
 ├── src/
 │   ├── api/                 # Groq client configuration & services
 │   ├── assets/              # Static assets & icons
 │   ├── components/
 │   │   ├── common/          # Global dialogs (API key setup)
+│   │   ├── crawler/         # Autonomous crawler settings & dashboard panel
 │   │   ├── dashboard/       # Stat cards, Pie & Bar charts
 │   │   ├── input/           # Credentials form, Queue list, text field inputs
 │   │   ├── layout/          # AppShell, Header, & NavTabs navigation
@@ -103,6 +91,8 @@ ai-ui-tester/
 │   │   └── results/         # Results grid tables & custom cell badges
 │   ├── hooks/               # Batch processor, export tools, dashboard calculators
 │   ├── prompts/             # System and user prompts for Groq LLM
+│   ├── services/
+│   │   └── crawler/         # CrawlOrchestrator, SiteDiscovery, Axe & Visual services
 │   ├── store/               # Zustand stores (scenario, session, result states)
 │   ├── types/               # TypeScript type definitions
 │   ├── utils/               # CSV/XLSX export utils & column definition builders
@@ -131,13 +121,30 @@ Ensure you have **Node.js** (v18 or higher) and a package manager (**npm**, **ya
    ```bash
    npm install
    ```
+3. Install browser binaries (for real crawling):
+   ```bash
+   npx playwright install chromium
+   ```
 
 ### 💻 Running Locally
-To launch the development server with Hot Module Replacement (HMR):
+
+#### 1. Start the React Frontend Dashboard
+To launch the Vite development server:
 ```bash
 npm run dev
 ```
-Open **[http://localhost:5173/](http://localhost:5173/)** in your browser.
+Open **[http://localhost:5173/AI.UITester/](http://localhost:5173/AI.UITester/)** in your browser. Go to the **Autonomous Crawler** tab to execute simulated or auth-driven crawls interactively.
+
+#### 2. Run the Node CLI Crawler
+To run the automated Playwright crawler locally from your terminal:
+```bash
+# Syntax:
+npm run crawl -- <target-url> [max-depth]
+
+# Example:
+npm run crawl -- https://example.com 2
+```
+This runs the full 11-step crawlers audit and outputs a structured `crawl-report.json` to the root directory.
 
 ---
 

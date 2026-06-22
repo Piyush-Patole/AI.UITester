@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/AI.UITester/',
+  build: {
+    rollupOptions: {
+      external: ['playwright', '@axe-core/playwright']
+    }
+  }
 })

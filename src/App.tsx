@@ -9,6 +9,7 @@ import { InputPanel } from './components/input/InputPanel';
 import { ProcessingPanel } from './components/processing/ProcessingPanel';
 import { ResultsGrid } from './components/results/ResultsGrid';
 import { DashboardPanel } from './components/dashboard/DashboardPanel';
+import { CrawlerDashboard } from './components/crawler/CrawlerDashboard';
 import { useSessionStore } from './store/sessionStore';
 import { useScenarioStore } from './store/scenarioStore';
 
@@ -67,6 +68,9 @@ function App() {
               )}
               {activeTab === 3 && (
                 <DashboardPanel />
+              )}
+              {activeTab === 4 && (
+                <CrawlerDashboard />
               )}
             </Box>
           </Box>

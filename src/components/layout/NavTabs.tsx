@@ -1,5 +1,5 @@
 import { Tabs, Tab, Box } from '@mui/material';
-import { PenLine, Settings, BarChart2, LayoutDashboard } from 'lucide-react';
+import { PenLine, Settings, BarChart2, LayoutDashboard, Compass } from 'lucide-react';
 
 interface NavTabsProps {
   currentTab: number;
@@ -35,6 +35,7 @@ export function NavTabs({ currentTab, onTabChange }: NavTabsProps) {
         <Tab icon={<Settings size={16} />} iconPosition="start" label="Execution Logs" />
         <Tab icon={<BarChart2 size={16} />} iconPosition="start" label="Detailed Results" />
         <Tab icon={<LayoutDashboard size={16} />} iconPosition="start" label="Analytics Dashboard" />
+        <Tab icon={<Compass size={16} />} iconPosition="start" label="Autonomous Crawler" />
       </Tabs>
     </Box>
   );
