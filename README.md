@@ -2,6 +2,9 @@
 
 An intelligent, AI-powered UI and E2E test generation, analysis, and self-healing platform. The application provides an elegant, clean user interface (built in a premium light theme) for specifying testing scenarios in natural language, orchestrating the test runs, visualizing live logs, and reviewing deep AI analyses of bugs, root causes (RCA), and self-healing selector suggestions.
 
+### 🌐 Live Demo
+Visit the hosted application here: **[https://Piyush-Patole.github.io/AI.UITester/](https://Piyush-Patole.github.io/AI.UITester/)**
+
 ---
 
 ## 🌟 Key Features
